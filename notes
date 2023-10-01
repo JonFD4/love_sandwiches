@@ -1,0 +1,2 @@
+list comprehension
+[int(value) for value in values]
