@@ -22,17 +22,22 @@ SHEET = GSPREAD_CLIENT.open('love_sandwiches')
 ''' Getting sales data from our user. Request for users to enter their data into terminal
 This will be saved as CSV- comma separated values- allows data to be saved in a table format. '''
 
-
+'''Get sales figures input from the user'''
 def get_sales_data():
-    '''Get sales figures input from the user'''
-    print("Please enter sales data from the last market")
-    print("Data should be six numbers, separated by commas")
-    print("Example: 10,20,30,40,50,60\n")
+    while True:
+      print("Please enter sales data from the last market")
+      print("Data should be six numbers, separated by commas")
+      print("Example: 10,20,30,40,50,60\n")
 
-    data_str = input("Enter your data here: ")
-    sales_data = data_str.split(",")
-    validate_data(sales_data)
+      data_str = input("Enter your data here: ")
+      sales_data = data_str.split(",")
+      
+      if validate_data(sales_data):
+        print("Data is valid")
+        break
+       
 
+      
 
 """ Ths validates the data given by user. If the data is wrong, it might break the program.
 With this function, the program will output a message to the user informing them about what is wrong.
@@ -50,5 +55,9 @@ def validate_data(values):
         raise ValueError(f"Exactly 6 values required, you provided {len(values)}")
      
   except ValueError as e:
-    print(f"Invalid data: {e}, please try again. \n")
-get_sales_data()
+       print(f"Invalid data: {e}, please try again. \n")
+       return False
+
+  return True
+
+data= get_sales_data()
