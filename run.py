@@ -8,7 +8,7 @@ SCOPE = [
     ]
 '''IAM stands for Identity and Access Management.
     It is a configuration present in all google accounts. It specifies what the user has access to.
-    The scope lists the APIs that the prohram should access in order to run. Our scope value will not change, therefore it is known as a constant variable, therefore written in capitals
+    The scope lists the APIs that the program should access in order to run. Our scope value will not change, therefore it is known as a constant variable, therefore written in capitals
     '''
 
     # Accessing spreadsheet and checking
@@ -23,11 +23,12 @@ SHEET = GSPREAD_CLIENT.open('love_sandwiches')
 
 This will be saved as CSV- comma separated values- allows data to be saved in a table format. '''
 
-'''Get sales figures input from the user
+
+def get_sales_data():
+    '''Get sales figures input from the user
 A while loop will be used to collect a valid string of data from the user via terminal,
 which must be a string of numbers separated by commas. The will repeatedly request data, until it is valid.
 '''
-def get_sales_data():
     while True:
       print("Please enter sales data from the last market")
       print("Data should be six numbers, separated by commas")
@@ -43,15 +44,16 @@ def get_sales_data():
     return sales_data
       
 
-""" Ths validates the data given by user. If the data is wrong, it might break the program.
+
+
+
+def validate_data(values):
+    """ Ths validates the data given by user. If the data is wrong, it might break the program.
 With this function, the program will output a message to the user informing them about what is wrong.
 
 Inside the function is the try statement. Inside it, the program will convert all string values into integers.
 Raises ValueError if strings cannot be converted into int or if there aren't exactly 6 values.
 """
-
-
-def validate_data(values):
     try:
         [int(value) for value in values]
         if len(values) != 6:
@@ -64,14 +66,16 @@ def validate_data(values):
     return True
 
 
+    
+def update_sales_worksheet(data):
     """ 
     Update sales worksheet, add new row with the lst provided.
     """
-def update_sales_worksheet(data):
-     print("Updating sales worksheet...")
-     sales_worksheet = SHEET.worksheet('sales')
-     sales_worksheet.append_row(data)
-     print("Sales worksheet updated successfully . \n")
+    print("Updating sales worksheet... \n")
+    sales_worksheet = SHEET.worksheet('sales')
+    sales_worksheet.append_row(data)
+    print("Sales worksheet updated successfully . \n")
+
 
 data = get_sales_data()
 sales_data = [int(num) for num in data]
